@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weak Subject Predictor | Class 10 A AI Project</title>
+<style>
+:root{--paper:#f3f6fb;--card:#fff;--ink:#1b2a6b;--text:#26304f;--pen:#d6336c;--hi:#ffe066;--ok:#1f9d6b;--warn:#e8890c;--line:#d5dcee}
+@media(prefers-color-scheme:dark){:root{--paper:#101635;--card:#182046;--ink:#b9c6ff;--text:#e2e7fb;--line:#2c366a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 "Trebuchet MS",Verdana,sans-serif;color:var(--text);background:var(--paper);background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px}
+header{padding:38px 0 18px}
+h1{font:800 clamp(2rem,6vw,3.4rem)/1.05 Georgia,serif;color:var(--ink);margin:0 0 10px}
+h1 mark{background:var(--hi);color:#1b2a6b;padding:0 .15em}
+h2{font:700 1.6rem Georgia,serif;color:var(--ink);margin:0 0 8px}
+h3{margin:0 0 6px;color:var(--ink)}
+.by{display:inline-block;border:2px solid var(--ink);border-radius:8px;padding:4px 12px;font-weight:700;color:var(--ink);background:var(--card)}
+nav{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:2px solid var(--ink)}
+nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:8px 18px}
+nav a{white-space:nowrap;text-decoration:none;color:var(--ink);font-weight:700;font-size:.9rem;padding:6px 12px;border-radius:6px}
+nav a:hover,nav a:focus-visible{background:var(--hi);color:#1b2a6b;outline:none}
+section{padding:26px 0}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:10px;padding:20px;box-shadow:5px 5px 0 var(--ink)}
+.stage{display:inline-block;background:var(--pen);color:#fff;font-weight:700;border-radius:20px;padding:2px 12px;font-size:.85rem;margin-bottom:6px}
+label{font-weight:700;font-size:.9rem;display:block}
+input{width:100%;font:inherit;padding:8px;border:2px solid var(--line);border-radius:6px;background:var(--paper);color:var(--text)}
+input:focus{outline:3px solid var(--hi);border-color:var(--ink)}
+.top{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:16px}
+.sub{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:8px;align-items:end;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.sub label{font-size:.75rem}
+@media(max-width:640px){.sub{grid-template-columns:1fr 1fr}.sub div:first-child{grid-column:1/-1}}
+button{font:700 1rem "Trebuchet MS",sans-serif;background:var(--ink);color:var(--paper);border:0;border-radius:8px;padding:12px 22px;cursor:pointer}
+button:hover{background:var(--pen);color:#fff}
+button.alt{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.msg{color:var(--pen);font-weight:700;margin:8px 0}
+.res{margin-top:22px}
+.row{display:grid;grid-template-columns:130px 1fr 110px;gap:10px;align-items:center;margin:8px 0}
+.bar{height:20px;background:var(--line);border-radius:10px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:10px;transition:width .5s}
+.tag{font-weight:700;text-align:right}
+.weak{color:var(--pen)}.watch{color:var(--warn)}.strong{color:var(--ok)}
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:10px}
+.plan div{border:2px solid var(--ink);border-radius:8px;padding:10px;background:var(--paper)}
+.plan b{font-size:1.4rem;color:var(--ink)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+table{border-collapse:collapse;width:100%;margin:8px 0}
+td,th{border:2px solid var(--ink);padding:8px;text-align:center}
+th{background:var(--hi);color:#1b2a6b}
+ul{padding-left:20px}
+small,.note{color:var(--text);opacity:.8}
+footer{padding:26px 0 40px;text-align:center;font-weight:700;color:var(--ink)}
+@media print{nav,button,.noprint{display:none!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<span class="by">Class 10 A &middot; Shabnam Rafi</span>
+<h1 style="margin-top:14px">Find your <mark>weak subjects</mark> before the exam does.</h1>
+<p style="max-width:60ch">Enter your marks and study habits. An AI model trained on 600 student records predicts which subjects are at risk and builds your weekly study plan.</p>
+</div></header>
+<nav><div class="wrap">
+<a href="#tool">Try it</a><a href="#s1">1 Problem</a><a href="#s2">2 Data</a><a href="#s3">3 Exploration</a><a href="#s4">4 Modelling</a><a href="#s5">5 Evaluation</a><a href="#s6">6 Deployment</a>
+</div></nav>
+
+<main class="wrap">
+<section id="tool"><div class="card">
+<span class="stage">Live predictor</span>
+<h2>Enter your details</h2>
+<p class="note">Use marks from your latest test or exam. Subject names can be edited.</p>
+<div class="top">
+<div><label for="name">Your name</label><input id="name" placeholder="e.g. Aisha"></div>
+<div><label for="att">Attendance % (overall)</label><input id="att" type="number" min="0" max="100" value="90"></div>
+<div><label for="tot">Study hours you can give per week</label><input id="tot" type="number" min="1" max="70" value="15"></div>
+</div>
+<div id="subs"></div>
+<button id="go">Predict my weak subjects</button>
+<div class="msg" id="err" role="alert"></div>
+<div class="res" id="out" hidden aria-live="polite"></div>
+</div></section>
+
+<section id="s1"><span class="stage">Stage 1</span><h2>Problem scoping</h2>
+<div class="card"><div class="grid2">
+<div><h3>Who</h3>Class 10 students preparing for board exams, and their parents and teachers.<h3 style="margin-top:12px">What</h3>Students do not know which subjects need the most time until results arrive.</div>
+<div><h3>Where</h3>At home while planning revision, at any time in the school year.<h3 style="margin-top:12px">Why</h3>Finding weak subjects early lets students spend limited hours where they matter most.</div>
+</div>
+<p><b>Problem statement:</b> How might we help Class 10 students see which subjects are at risk, so they can plan revision time wisely?</p></div></section>
+
+<section id="s2"><span class="stage">Stage 2</span><h2>Data acquisition</h2>
+<div class="card">
+<p>Each record is one student in one subject, with five inputs and one result:</p>
+<ul><li>Last exam mark (%)</li><li>Study hours per week for that subject</li><li>Attendance (%)</li><li>Homework completed (%)</li><li>Confidence in the subject (1 to 5)</li><li><b>Target:</b> weak (next exam below 55%) or not weak</li></ul>
+<p><b>Honest note:</b> this demo dataset has 600 <b>synthetic</b> records generated from realistic patterns (more study, attendance and homework lead to better marks, plus random variation). For the final submission, collect real data with a class survey and replace it. The site retrains itself on the data in the script.</p>
+<button class="alt" id="dl">Download dataset (CSV)</button>
+</div></section>
+
+<section id="s3"><span class="stage">Stage 3</span><h2>Data exploration</h2>
+<div class="card"><div class="grid2">
+<div><h3>Weak-subject rate by weekly study hours</h3><div id="c1"></div></div>
+<div><h3>Weak-subject rate by attendance</h3><div id="c2"></div></div>
+</div>
+<p id="insight"></p></div></section>
+
+<section id="s4"><span class="stage">Stage 4</span><h2>Modelling</h2>
+<div class="card">
+<p><b>Model: logistic regression.</b> It gives each input a weight, adds them up, and turns the total into a risk between 0% and 100%. It was chosen because it answers a yes/no question, is fast in a browser, and its weights are easy to explain. The model trains on 80% of the data when this page loads.</p>
+<h3>What the model learned (bigger bar = bigger effect on risk)</h3>
+<div id="wts"></div>
+<p class="note">Bars pointing to "raises risk" mean a higher value makes a subject more likely to be weak. Bars pointing to "lowers risk" mean a higher value protects you.</p>
+</div></section>
+
+<section id="s5"><span class="stage">Stage 5</span><h2>Evaluation</h2>
+<div class="card">
+<p>The model was tested on the 20% of records it never saw during training.</p>
+<div id="ev"></div>
+<p class="note">Precision: when it says "weak", how often is it right. Recall: of all truly weak subjects, how many it caught. Recall matters most here, because missing a weak subject is worse than a false alarm.</p>
+</div></section>
+
+<section id="s6"><span class="stage">Stage 6</span><h2>Deployment</h2>
+<div class="card">
+<p>The predictor at the top of this page is the deployed product. It runs completely in your browser, so no marks are sent or stored anywhere.</p>
+<ul><li>Works offline as a single file, on phone and computer.</li><li>Use "Save as PDF" after a prediction to keep or share your plan.</li><li>Limits: it is a guide, not a guarantee. It does not know exam difficulty or personal situations. Talk to your teachers too.</li><li>Next steps: train on real class survey data, add more subjects, and track improvement each term.</li></ul>
+</div></section>
+</main>
+<footer>AI Project Cycle &middot; Class 10 A &middot; Shabnam Rafi</footer>
+
+<script>
+const F=["Last exam mark","Study hours / week","Attendance","Homework done","Confidence"];
+const SUBJ=["English","Mathematics","Science","Social Science","Second Language","IT / Computer"];
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=rng(2026);
+function nrm(m,s){return m+s*Math.sqrt(-2*Math.log(1-R()))*Math.cos(2*Math.PI*R())}
+const cl=(v,a,b)=>Math.min(b,Math.max(a,v));
+// Stage 2: dataset
+const D=[];
+for(let i=0;i<600;i++){
+ const m=cl(nrm(62,15),15,100),h=cl(nrm(3,1.6),0,10),a=cl(nrm(85,10),40,100),w=cl(nrm(75,20),0,100);
+ const c=cl(Math.round(nrm(2.2+m/40+h/6,.8)),1,5);
+ const next=.55*m+3.2*h+.12*a+.1*w+2.5*c+nrm(-6,6);
+ D.push({x:[m,h,a,w,c],y:next<55?1:0});
+}
+// Stage 4: train logistic regression
+const idx=D.map((_,i)=>i).sort(()=>R()-.5),cut=Math.floor(D.length*.8);
+const tr=idx.slice(0,cut).map(i=>D[i]),te=idx.slice(cut).map(i=>D[i]);
+const mu=F.map((_,j)=>tr.reduce((s,r)=>s+r.x[j],0)/tr.length);
+const sd=F.map((_,j)=>Math.sqrt(tr.reduce((s,r)=>s+(r.x[j]-mu[j])**2,0)/tr.length)||1);
+const z=x=>x.map((v,j)=>(v-mu[j])/sd[j]);
+const sig=t=>1/(1+Math.exp(-t));
+let W=F.map(()=>0),B=0;
+for(let e=0;e<500;e++){
+ const g=F.map(()=>0);let gb=0;
+ for(const r of tr){const zz=z(r.x),p=sig(B+zz.reduce((s,v,j)=>s+v*W[j],0)),d=p-r.y;zz.forEach((v,j)=>g[j]+=d*v);gb+=d}
+ W=W.map((w,j)=>w-.3*g[j]/tr.length);B-=.3*gb/tr.length;
+}
+const risk=x=>{const zz=z(x);return sig(B+zz.reduce((s,v,j)=>s+v*W[j],0))};
+// Stage 5: evaluate
+let tp=0,fp=0,tn=0,fn=0;
+te.forEach(r=>{const p=risk(r.x)>=.5?1:0;if(p&&r.y)tp++;else if(p)fp++;else if(r.y)fn++;else tn++});
+const acc=(tp+tn)/te.length,prec=tp/(tp+fp||1),rec=tp/(tp+fn||1);
+const $=id=>document.getElementById(id);
+$("ev").innerHTML=`<div class="grid2"><table><tr><th></th><th>Predicted weak</th><th>Predicted OK</th></tr><tr><th>Actually weak</th><td>${tp}</td><td>${fn}</td></tr><tr><th>Actually OK</th><td>${fp}</td><td>${tn}</td></tr></table>
+<div><h3>Accuracy: ${(acc*100).toFixed(1)}%</h3><h3>Precision: ${(prec*100).toFixed(1)}%</h3><h3>Recall: ${(rec*100).toFixed(1)}%</h3><small>${te.length} unseen test records</small></div></div>`;
+// Stage 4: weights display
+const mx=Math.max(...W.map(Math.abs));
+$("wts").innerHTML=F.map((f,j)=>{const up=W[j]>0;return `<div class="row"><span>${f}</span><div class="bar"><i style="width:${Math.abs(W[j])/mx*100}%;background:${up?'var(--pen)':'var(--ok)'}"></i></div><span class="tag ${up?'weak':'strong'}">${up?'raises risk':'lowers risk'}</span></div>`}).join("");
+// Stage 3: charts
+function chart(id,fn,labels){
+ const b=labels.map(()=>[0,0]);D.forEach(r=>{const k=fn(r.x);b[k][0]+=r.y;b[k][1]++});
+ $(id).innerHTML=labels.map((l,k)=>{const p=b[k][1]?b[k][0]/b[k][1]*100:0;return `<div class="row"><span>${l}</span><div class="bar"><i style="width:${p}%;background:var(--ink)"></i></div><span class="tag">${p.toFixed(0)}%</span></div>`}).join("");
+ return b.map(v=>v[1]?v[0]/v[1]:0);
+}
+const c1=chart("c1",x=>x[1]<1?0:x[1]<2.5?1:x[1]<4?2:3,["Under 1 hr","1 to 2.5 hrs","2.5 to 4 hrs","4+ hrs"]);
+chart("c2",x=>x[2]<70?0:x[2]<85?1:x[2]<95?2:3,["Under 70%","70 to 85%","85 to 95%","95%+"]);
+$("insight").innerHTML=`<b>Pattern found:</b> students studying under 1 hour a week were weak in ${(c1[0]*100).toFixed(0)}% of cases, against ${(c1[3]*100).toFixed(0)}% for those studying 4+ hours.`;
+// Stage 2: download
+$("dl").onclick=()=>{
+ const csv="marks,study_hours,attendance,homework,confidence,weak\n"+D.map(r=>r.x.map(v=>v.toFixed(1)).join(",")+","+r.y).join("\n");
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="student_dataset.csv";a.click();
+};
+// Stage 6: form
+$("subs").innerHTML=SUBJ.map((s,i)=>`<div class="sub">
+<div><label>Subject</label><input class="n" value="${s}"></div>
+<div><label>Last mark %</label><input class="m" type="number" min="0" max="100" placeholder="e.g. 62"></div>
+<div><label>Study hrs/week</label><input class="h" type="number" min="0" max="30" step=".5" placeholder="e.g. 3"></div>
+<div><label>Homework done %</label><input class="w" type="number" min="0" max="100" placeholder="e.g. 80"></div>
+<div><label>Confidence 1-5</label><input class="c" type="number" min="1" max="5" placeholder="e.g. 3"></div></div>`).join("");
+const TIP=[
+ "Go through your last paper and fix every mistake you made.",
+ "Add a few more study hours. Short daily sessions work best.",
+ "Attend every class, since missed lessons are hard to recover.",
+ "Finish all homework, because it is the easiest practice you have.",
+ "Practise past questions to build confidence."];
+$("go").onclick=()=>{
+ $("err").textContent="";
+ const att=parseFloat($("att").value),tot=parseFloat($("tot").value);
+ if(isNaN(att)||isNaN(tot)){$("err").textContent="Enter your attendance and weekly study hours.";return}
+ const rows=[...document.querySelectorAll(".sub")],res=[];
+ for(const r of rows){
+  const q=c=>parseFloat(r.querySelector(c).value),nm=r.querySelector(".n").value||"Subject";
+  const v=[q(".m"),q(".h"),att,q(".w"),q(".c")];
+  if(v.some(isNaN)){$("err").textContent=`Fill in every box for ${nm}.`;return}
+  v[0]=cl(v[0],0,100);v[1]=cl(v[1],0,30);v[3]=cl(v[3],0,100);v[4]=cl(v[4],1,5);
+  const zz=z(v),contrib=zz.map((s,j)=>s*W[j]);
+  let worst=0;contrib.forEach((c,j)=>{if(c>contrib[worst])worst=j});
+  const wi=[0,1,2,3,4].indexOf(worst);
+  res.push({nm,p:risk(v),tip:TIP[wi]});
+ }
+ res.sort((a,b)=>b.p-a.p);
+ const lab=p=>p>=.5?["Weak","weak","var(--pen)"]:p>=.3?["Watch","watch","var(--warn)"]:["Strong","strong","var(--ok)"];
+ const sum=res.reduce((s,r)=>s+r.p+.1,0);
+ const who=$("name").value.trim();
+ const weakN=res.filter(r=>r.p>=.5).map(r=>r.nm);
+ $("out").hidden=false;
+ $("out").innerHTML=`<h2>${who?who+", here":"Here"} are your results</h2>
+ <p>${weakN.length?`Your weak subjects: <b class="weak">${weakN.join(", ")}</b>.`:"No subject is in the weak zone right now. Keep it up and watch the amber ones."}</p>
+ ${res.map(r=>{const l=lab(r.p);return `<div class="row"><span>${r.nm}</span><div class="bar"><i style="width:${r.p*100}%;background:${l[2]}"></i></div><span class="tag ${l[1]}">${l[0]} ${(r.p*100).toFixed(0)}%</span></div>`}).join("")}
+ <h3 style="margin-top:20px">Your ${tot}-hour weekly study plan</h3>
+ <div class="plan">${res.map(r=>`<div><b>${(tot*(r.p+.1)/sum).toFixed(1)} hrs</b><br><strong>${r.nm}</strong><br><small>${r.tip}</small></div>`).join("")}</div>
+ <p class="noprint" style="margin-top:16px"><button class="alt" onclick="print()">Save as PDF</button></p>
+ <small>Risk = chance the next exam mark falls below 55%. This is a guide, not a guarantee.</small>`;
+ $("out").scrollIntoView({behavior:"smooth"});
+};
+</script>
+</body>
+</html>
